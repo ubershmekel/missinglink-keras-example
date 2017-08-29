@@ -10,8 +10,6 @@ from __future__ import print_function
 import argparse
 import missinglink
 
-from class_mapping import mnist_class_mapping
-
 import keras
 from keras.datasets import mnist
 from keras.models import Sequential
@@ -90,6 +88,16 @@ model.compile(loss=keras.losses.categorical_crossentropy,
               optimizer=keras.optimizers.Adadelta(),
               metrics=['accuracy', 'categorical_accuracy', 'mean_squared_error', 'hinge'])
 
+# Provide an alternative to provide MissingLinkAI credential
+parser = argparse.ArgumentParser()
+parser.add_argument('--owner-id')
+parser.add_argument('--project-token')
+
+# Override credential values if provided as arguments
+args = parser.parse_args()
+OWNER_ID = args.owner_id or OWNER_ID
+PROJECT_TOKEN = args.project_token or PROJECT_TOKEN
+
 callback = missinglink.KerasCallback(owner_id=OWNER_ID, project_token=PROJECT_TOKEN)
 
 callback.set_properties(display_name='Keras convolutional neural network',
@@ -99,19 +107,8 @@ model.fit(
     x_train, y_train, batch_size=BATCH_SIZE, nb_epoch=EPOCHS, validation_split=VALIDATION_SPLIT,
     callbacks=[callback])
 
-if __name__ == '__main__':
-    # Provide an alternative to provide MissingLinkAI credential
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--owner-id')
-    parser.add_argument('--project-token')
+with callback.test(model):
+    score = model.evaluate(x_test, y_test, verbose=VERBOSITY)
 
-    # Override credential values if provided as arguments
-    args = parser.parse_args()
-    OWNER_ID = args.owner_id or OWNER_ID
-    PROJECT_TOKEN = args.project_token or PROJECT_TOKEN
-
-    with callback.test(model):
-        score = model.evaluate(x_test, y_test, verbose=VERBOSITY)
-
-        print('Test score:', score[0])
-        print('Test accuracy:', score[1])
+    print('Test score:', score[0])
+    print('Test accuracy:', score[1])
