@@ -38,5 +38,4 @@ Alternatively, you can copy these credentials and set them in source files.
 
 These examples train classification models for MNIST dataset.
 
-- [mnist.py](https://github.com/missinglinkai/missinglink-keras-example/blob/master/mnist.py): training with iterations/steps using single loop.
-- [mnist_with_epoch_loop.py](https://github.com/missinglinkai/missinglink-keras-example/blob/master/mnist_with_epoch_loop.py): training with epochs and batches using nested loops.
+- [mnist.py](https://github.com/missinglinkai/missinglink-keras-example/blob/master/mnist.py): training with Keras's evaluate
