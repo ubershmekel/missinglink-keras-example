@@ -98,14 +98,17 @@ args = parser.parse_args()
 OWNER_ID = args.owner_id or OWNER_ID
 PROJECT_TOKEN = args.project_token or PROJECT_TOKEN
 
-callback = missinglink.KerasCallback(owner_id=OWNER_ID, project_token=PROJECT_TOKEN)
+missinglink_callback = missinglink.KerasCallback(
+    owner_id=OWNER_ID, project_token=PROJECT_TOKEN)
 
-callback.set_properties(display_name='Keras convolutional neural network',
-                        description='Two dimensional convolutional neural network')
+missinglink_callback.set_properties(
+    display_name='Keras convolutional neural network',
+    description='Two dimensional convolutional neural network')
 
 model.fit(
-    x_train, y_train, batch_size=BATCH_SIZE, nb_epoch=EPOCHS, validation_split=VALIDATION_SPLIT,
-    callbacks=[callback])
+    x_train, y_train, batch_size=BATCH_SIZE,
+    nb_epoch=EPOCHS, validation_split=VALIDATION_SPLIT,
+    callbacks=[missinglink_callback])
 
 with callback.test(model):
     score = model.evaluate(x_test, y_test, verbose=VERBOSITY)

@@ -5,8 +5,6 @@
 # We will then integrate MissingLink SDK in order to remotely monitor our training, validation
 # and testing process.
 
-from __future__ import print_function
-
 import keras
 from keras.datasets import mnist
 from keras.models import Sequential
@@ -81,7 +79,8 @@ model.compile(loss=keras.losses.categorical_crossentropy,
               optimizer=keras.optimizers.Adadelta(),
               metrics=['accuracy', 'categorical_accuracy', 'mean_squared_error', 'hinge'])
 
-model.fit(x_train, y_train, batch_size=BATCH_SIZE, nb_epoch=EPOCHS, validation_split=VALIDATION_SPLIT)
+model.fit(x_train, y_train, batch_size=BATCH_SIZE,
+          nb_epoch=EPOCHS, validation_split=VALIDATION_SPLIT)
 
 score = model.evaluate(x_test, y_test, verbose=VERBOSITY)
 
