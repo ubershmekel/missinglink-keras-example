@@ -125,7 +125,7 @@ model.fit(
     nb_epoch=EPOCHS, validation_split=VALIDATION_SPLIT,
     callbacks=[missinglink_callback])
 
-with callback.test(model):
+with missinglink_callback.test(model):
     score = model.evaluate(x_test, y_test, verbose=VERBOSITY)
 
     print('Test score:', score[0])
