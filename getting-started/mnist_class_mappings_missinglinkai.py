@@ -32,8 +32,7 @@ ACTIVATION_RELU = 'relu'
 ACTIVATION_SOFTMAX = 'softmax'
 
 # Training params
-# EPOCHS = 8
-EPOCHS = 12
+EPOCHS = 8
 BATCH_SIZE = 128
 CONV_DROPOUT = 0.25
 DENSE_DROPOUT = 0.5
@@ -102,23 +101,9 @@ PROJECT_TOKEN = args.project_token or PROJECT_TOKEN
 missinglink_callback = missinglink.KerasCallback(
     owner_id=OWNER_ID, project_token=PROJECT_TOKEN)
 
-mnist_class_mapping = {
-    0: 'zero',
-    1: 'one',
-    2: 'two',
-    3: 'three',
-    4: 'four',
-    5: 'five',
-    6: 'six',
-    7: 'seven',
-    8: 'eight',
-    9: 'nine',
-}
-
 missinglink_callback.set_properties(
-    display_name='My Keras convolutional neural network',
-    description='12 epochs instead of 8',
-    class_mapping=mnist_class_mapping)
+    display_name='Keras convolutional neural network',
+    description='Two dimensional convolutional neural network')
 
 model.fit(
     x_train, y_train, batch_size=BATCH_SIZE,
