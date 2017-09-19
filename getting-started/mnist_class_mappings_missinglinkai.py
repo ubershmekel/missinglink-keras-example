@@ -117,7 +117,7 @@ mnist_class_mapping = {
 missinglink_callback.set_properties(
     display_name='Keras convolutional neural network',
     description='Two dimensional convolutional neural network',
-    class_mapping=class_mapping)
+    class_mapping=mnist_class_mapping)
 
 model.fit(
     x_train, y_train, batch_size=BATCH_SIZE,
