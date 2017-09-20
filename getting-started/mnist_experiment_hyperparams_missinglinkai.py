@@ -32,8 +32,8 @@ ACTIVATION_RELU = 'relu'
 ACTIVATION_SOFTMAX = 'softmax'
 
 # Training params
-# EPOCHS = 8
-EPOCHS = 1
+DROPOUT_RATE = 0.1
+EPOCHS = 8
 BATCH_SIZE = 128
 CONV_DROPOUT = 0.25
 DENSE_DROPOUT = 0.5
@@ -107,7 +107,7 @@ missinglink_callback.set_properties(
     description='Two dimensional convolutional neural network')
 
 missinglink_callback.set_hyperparams(
-    total_epochs=EPOCHS)
+    dropout_rate=DROPOUT_RATE)
 
 model.fit(
     x_train, y_train, batch_size=BATCH_SIZE,
