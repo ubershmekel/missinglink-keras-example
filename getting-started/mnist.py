@@ -35,9 +35,6 @@ DENSE_DROPOUT = 0.5
 # Validation params
 VALIDATION_SPLIT = 0.2
 
-# Model params
-VERBOSITY = 0
-
 # The MNIST data, shuffled and split between train and test sets
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
@@ -82,7 +79,7 @@ model.compile(loss=keras.losses.categorical_crossentropy,
 model.fit(x_train, y_train, batch_size=BATCH_SIZE,
           nb_epoch=EPOCHS, validation_split=VALIDATION_SPLIT)
 
-score = model.evaluate(x_test, y_test, verbose=VERBOSITY)
+score = model.evaluate(x_test, y_test)
 
 print('Test score:', score[0])
 print('Test accuracy:', score[1])

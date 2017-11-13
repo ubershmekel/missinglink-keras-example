@@ -40,9 +40,6 @@ DENSE_DROPOUT = 0.5
 # Validation params
 VALIDATION_SPLIT = 0.2
 
-# Model params
-VERBOSITY = 0
-
 # MissingLink credentials
 OWNER_ID = '-replace-me-with-owner-id-'
 PROJECT_TOKEN = '-replace-me-with-project-token-'
@@ -121,7 +118,7 @@ model.fit(
     callbacks=[missinglink_callback])
 
 with missinglink_callback.test(model):
-    score = model.evaluate(x_test, y_test, verbose=VERBOSITY)
+    score = model.evaluate(x_test, y_test)
 
     print('Test score:', score[0])
     print('Test accuracy:', score[1])
