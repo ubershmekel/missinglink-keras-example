@@ -5,6 +5,7 @@
 # We will then integrate MissingLink SDK in order to remotely monitor our training, validation
 # and testing process.
 
+import os
 import argparse
 import missinglink
 
@@ -39,8 +40,9 @@ DENSE_DROPOUT = 0.5
 VALIDATION_SPLIT = 0.2
 
 # MissingLink credentials
-OWNER_ID = 'Fill in your owner id'
-PROJECT_TOKEN = 'Fill in your project token'
+OWNER_ID = os.environ.get('ML_OWNER')
+PROJECT_TOKEN = os.environ.get('ML_PROJECT')
+HOST = os.environ.get('ML_HOST')
 
 # The MNIST data, shuffled and split between train and test sets
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -87,14 +89,16 @@ model.compile(loss=keras.losses.categorical_crossentropy,
 parser = argparse.ArgumentParser()
 parser.add_argument('--owner-id')
 parser.add_argument('--project-token')
+parser.add_argument('--host')
 
 # Override credential values if provided as arguments
 args = parser.parse_args()
 OWNER_ID = args.owner_id or OWNER_ID
 PROJECT_TOKEN = args.project_token or PROJECT_TOKEN
+HOST = args.host or HOST
 
 missinglink_callback = missinglink.KerasCallback(
-    owner_id=OWNER_ID, project_token=PROJECT_TOKEN)
+    owner_id=OWNER_ID, project_token=PROJECT_TOKEN, host=HOST)
 
 missinglink_callback.set_properties(
     display_name='Keras convolutional neural network',
